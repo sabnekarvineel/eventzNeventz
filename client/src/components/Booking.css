@@ -1,7 +1,8 @@
 .booking {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  background: #2C3E50;
   position: relative;
+  margin-bottom: 0;
 }
 
 .booking::after {
@@ -9,7 +10,7 @@
   position: absolute;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: 50%;
   bottom: -150px;
   right: -150px;
@@ -22,8 +23,8 @@
 }
 
 .booking-form-container {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: #FFFFFF;
+  border: 1px solid #D4AF37;
   border-radius: 12px;
   padding: 2.5rem;
   animation: fadeInUp 0.8s ease-out;
@@ -31,8 +32,8 @@
 }
 
 .form-info {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid #D4AF37;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1.5rem;
@@ -40,13 +41,13 @@
 }
 
 .form-info p {
-  color: #d4af37;
+  color: #2C3E50;
   font-size: 0.95rem;
   margin: 0;
 }
 
 .form-info strong {
-  color: #f4d03f;
+  color: #2C3E50;
   font-weight: 600;
 }
 
@@ -66,7 +67,7 @@
 }
 
 .form-group label {
-  color: #d4af37;
+  color: #2C3E50;
   font-weight: 600;
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
@@ -76,10 +77,10 @@
 .form-group select,
 .form-group textarea {
   padding: 12px 15px;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid #D4AF37;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.8);
+  color: #2C3E50;
   font-family: inherit;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -87,21 +88,21 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #808080;
+  color: #D4AF37;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
+  border-color: #D4AF37;
+  background: #fff;
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 .form-group select option {
-  background: #1a1a1a;
-  color: #e0e0e0;
+  background: #FFFFFF;
+  color: #2C3E50;
 }
 
 .form-group textarea {
@@ -142,6 +143,7 @@
 @media (max-width: 768px) {
   .booking {
     padding: 60px 20px;
+    margin-bottom: 0;
   }
 
   .booking-form-container {

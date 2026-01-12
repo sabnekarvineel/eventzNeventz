@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  background: #2C3E50;
   overflow: hidden;
   margin-top: 80px;
   padding: 40px 20px;
@@ -31,27 +31,30 @@
 .orb-1 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, #d4af37, #8b7a1a);
+  background: #D4AF37;
   top: -100px;
   right: -100px;
+  opacity: 0.15;
 }
 
 .orb-2 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, #f4d03f, #d4af37);
+  background: #3B8E8C;
   bottom: -50px;
   left: -100px;
   animation-delay: 2s;
+  opacity: 0.15;
 }
 
 .orb-3 {
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, #8b7a1a, #3a3a1a);
+  background: #D4AF37;
   top: 50%;
   left: 50%;
   animation-delay: 4s;
+  opacity: 0.15;
 }
 
 @keyframes float {
@@ -81,16 +84,13 @@
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #F5F3F0;
   line-height: 1.2;
 }
 
 .hero-subtitle {
   font-size: 1.3rem;
-  color: #b0b0b0;
+  color: #D4AF37;
   margin-bottom: 2.5rem;
   line-height: 1.8;
 }

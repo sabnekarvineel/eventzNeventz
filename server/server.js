@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -7,6 +8,15 @@ const PORT = process.env.PORT || 5000;
 
 // Business email
 const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
+
+// Email configuration
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER || 'eventzneventz@gmail.com',
+    pass: process.env.EMAIL_PASSWORD || ''
+  }
+});
 
 // Middleware
 app.use(cors());
@@ -19,7 +29,7 @@ let inquiries = [];
 // Routes
 
 // Booking endpoint
-app.post('/api/bookings', (req, res) => {
+app.post('/api/bookings', async (req, res) => {
   const { name, phone, email, eventType, date, time, attendees, notes } = req.body;
 
   // Validation
@@ -42,28 +52,86 @@ app.post('/api/bookings', (req, res) => {
 
   bookings.push(booking);
 
-  console.log(`📅 New Booking Received:
-  Name: ${name}
-  Phone: ${phone}
-  Email: ${email}
-  Event Type: ${eventType}
-  Date: ${date}
-  Time: ${time}
-  Attendees: ${attendees}
-  Notes: ${notes}
-  
-  📧 Send confirmation email to: ${email}
-  📧 Business notification to: ${BUSINESS_EMAIL}
-  `);
+  // Send customer confirmation email
+  const customerMailOptions = {
+    from: BUSINESS_EMAIL,
+    to: email,
+    subject: 'Booking Confirmation - EventzNEventz',
+    html: `
+      <h2>Booking Confirmation</h2>
+      <p>Dear ${name},</p>
+      <p>Thank you for booking with EventzNEventz! We have received your booking request.</p>
+      <h3>Booking Details:</h3>
+      <ul>
+        <li><strong>Event Type:</strong> ${eventType}</li>
+        <li><strong>Event Date:</strong> ${date}</li>
+        <li><strong>Preferred Time:</strong> ${time}</li>
+        <li><strong>Number of Attendees:</strong> ${attendees}</li>
+        <li><strong>Special Requests:</strong> ${notes || 'None'}</li>
+      </ul>
+      <p>We will contact you soon at ${phone} to discuss further details.</p>
+      <p>Best regards,<br>EventzNEventz Team</p>
+    `
+  };
 
-  res.status(201).json({
-    message: 'Booking successful! We will contact you soon.',
-    booking
-  });
+  // Send business notification email
+  const businessMailOptions = {
+    from: BUSINESS_EMAIL,
+    to: BUSINESS_EMAIL,
+    subject: 'New Booking - EventzNEventz',
+    html: `
+      <h2>New Booking Received</h2>
+      <h3>Customer Details:</h3>
+      <ul>
+        <li><strong>Name:</strong> ${name}</li>
+        <li><strong>Phone:</strong> ${phone}</li>
+        <li><strong>Email:</strong> ${email}</li>
+      </ul>
+      <h3>Event Details:</h3>
+      <ul>
+        <li><strong>Event Type:</strong> ${eventType}</li>
+        <li><strong>Event Date:</strong> ${date}</li>
+        <li><strong>Preferred Time:</strong> ${time}</li>
+        <li><strong>Number of Attendees:</strong> ${attendees}</li>
+        <li><strong>Special Requests:</strong> ${notes || 'None'}</li>
+      </ul>
+    `
+  };
+
+  try {
+    // Send both emails
+    await transporter.sendMail(customerMailOptions);
+    await transporter.sendMail(businessMailOptions);
+
+    console.log(`📅 New Booking Received:
+    Name: ${name}
+    Phone: ${phone}
+    Email: ${email}
+    Event Type: ${eventType}
+    Date: ${date}
+    Time: ${time}
+    Attendees: ${attendees}
+    Notes: ${notes}
+    
+    ✅ Confirmation email sent to: ${email}
+    ✅ Business notification sent to: ${BUSINESS_EMAIL}
+    `);
+
+    res.status(201).json({
+      message: 'Booking successful! We will contact you soon.',
+      booking
+    });
+  } catch (err) {
+    console.error('Email sending error:', err);
+    res.status(201).json({
+      message: 'Booking received but email notification failed. We will contact you soon.',
+      booking
+    });
+  }
 });
 
 // Contact endpoint
-app.post('/api/contact', (req, res) => {
+app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -80,18 +148,64 @@ app.post('/api/contact', (req, res) => {
 
   inquiries.push(inquiry);
 
-  console.log(`💬 New Contact Message Received:
-  Name: ${name}
-  Email: ${email}
-  Message: ${message}
-  
-  📧 Business notification to: ${BUSINESS_EMAIL}
-  `);
+  // Send customer acknowledgment email
+  const customerMailOptions = {
+    from: BUSINESS_EMAIL,
+    to: email,
+    subject: 'Message Received - EventzNEventz',
+    html: `
+      <h2>Thank You for Contacting Us</h2>
+      <p>Dear ${name},</p>
+      <p>We have received your message and will get back to you as soon as possible.</p>
+      <p><strong>Your Message:</strong></p>
+      <p>${message.replace(/\n/g, '<br>')}</p>
+      <p>Our team will contact you shortly.</p>
+      <p>Best regards,<br>EventzNEventz Team</p>
+    `
+  };
 
-  res.status(201).json({
-    message: 'Message received! We will get back to you soon.',
-    inquiry
-  });
+  // Send business notification email
+  const businessMailOptions = {
+    from: BUSINESS_EMAIL,
+    to: BUSINESS_EMAIL,
+    subject: 'New Contact Message - EventzNEventz',
+    html: `
+      <h2>New Contact Message Received</h2>
+      <h3>Sender Details:</h3>
+      <ul>
+        <li><strong>Name:</strong> ${name}</li>
+        <li><strong>Email:</strong> ${email}</li>
+      </ul>
+      <h3>Message:</h3>
+      <p>${message.replace(/\n/g, '<br>')}</p>
+    `
+  };
+
+  try {
+    // Send both emails
+    await transporter.sendMail(customerMailOptions);
+    await transporter.sendMail(businessMailOptions);
+
+    console.log(`💬 New Contact Message Received:
+    Name: ${name}
+    Email: ${email}
+    Message: ${message}
+    
+    ✅ Acknowledgment sent to: ${email}
+    ✅ Business notification sent to: ${BUSINESS_EMAIL}
+    `);
+
+    res.status(201).json({
+      message: 'Message received! We will get back to you soon.',
+      inquiry
+    });
+  } catch (err) {
+    console.error('Email sending error:', err);
+    res.status(201).json({
+      message: 'Message received but email notification failed. We will get back to you soon.',
+      inquiry
+    });
+  }
 });
 
 // Get all bookings (for testing)

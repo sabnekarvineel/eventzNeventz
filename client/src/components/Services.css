@@ -1,7 +1,8 @@
 .services {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  background: #2C3E50;
   position: relative;
+  margin-top: 0;
 }
 
 .services::after {
@@ -9,7 +10,7 @@
   position: absolute;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: 50%;
   bottom: -150px;
   left: -150px;
@@ -43,12 +44,12 @@
 
 .service-title {
   font-size: 1.5rem;
-  color: #d4af37;
+  color: #FFFFFF;
   margin-bottom: 1rem;
 }
 
 .service-description {
-  color: #b0b0b0;
+  color: #FFFFFF;
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
@@ -67,6 +68,7 @@
 @media (max-width: 768px) {
   .services {
     padding: 60px 20px;
+    margin-top: 0;
   }
 
   .services-grid {
