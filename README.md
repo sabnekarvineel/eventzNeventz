@@ -217,11 +217,6 @@ The app will open at `http://localhost:3000`
 
 ## Customization
 
-### Colors
-Update the primary colors in CSS files:
-- Primary Gold: `#d4af37`
-- Dark Background: `#0a0a0a`
-- Card Background: `#1a1a1a`, `#2a2a2a`
 
 ### Content
 - Update company name and contact info in Footer & Contact sections
