@@ -18,7 +18,7 @@ function Booking() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  const eventTypes = ['Weddings', 'Corporate Events', 'Music & Concerts', 'Tech Events', 'Private Parties', 'Community Events'];
+  const eventTypes = ['Weddings', 'Corporate Events', 'Music & Concerts', 'Tech Events', 'Private Parties', 'Community Events', 'Mice Events'];
   const timeSlots = ['09:00 AM', '10:00 AM', '11:00 AM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM'];
 
   const handleChange = (e) => {

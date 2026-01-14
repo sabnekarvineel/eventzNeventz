@@ -22,7 +22,7 @@ function Testimonials() {
     },
     {
       id: 3,
-      name: 'Shanmukh Gupta',
+      name: 'Sri Shanmukh Gupta',
       event: 'Birthday Party',
       text: 'The birthday party was fun, well-organized, and filled with joy, laughter, and great memories.',
       rating: 5,
