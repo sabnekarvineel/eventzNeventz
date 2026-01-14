@@ -72,6 +72,28 @@
   }
 }
 
+@keyframes titleSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -86,6 +108,7 @@
   margin-bottom: 1.5rem;
   color: #F5F3F0;
   line-height: 1.2;
+  animation: titleSlideIn 0.8s ease-out 3.2s both;
 }
 
 .hero-subtitle {
@@ -93,6 +116,7 @@
   color: #D4AF37;
   margin-bottom: 2.5rem;
   line-height: 1.8;
+  animation: fadeInUp 0.8s ease-out 4s both;
 }
 
 .hero-buttons {
@@ -100,6 +124,7 @@
   gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 4.8s both;
 }
 
 @media (max-width: 768px) {

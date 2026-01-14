@@ -8,7 +8,7 @@ function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      name: 'Sri Madhan Mohan',
+      name: 'Sri Madhan Mohan Rao',
       event: 'Wedding Planning',
       text: 'EventzNEventz made our wedding day absolutely perfect! Every detail was executed flawlessly.',
       rating: 5,
