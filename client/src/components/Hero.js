@@ -1,9 +1,12 @@
 import React from 'react';
 import './Hero.css';
+import CelebrationAnimation from './CelebrationAnimation';
 
 function Hero({ scrollToBooking, scrollToContact }) {
   return (
     <section className="hero">
+      <CelebrationAnimation />
+      
       <div className="hero-content">
         <h1 className="hero-title">Create Unforgettable Events</h1>
         <p className="hero-subtitle">

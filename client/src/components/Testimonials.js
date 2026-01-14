@@ -8,36 +8,25 @@ function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      name: 'Sarah Johnson',
+      name: 'Sri Madhan Mohan',
       event: 'Wedding Planning',
       text: 'EventzNEventz made our wedding day absolutely perfect! Every detail was executed flawlessly.',
       rating: 5,
-      avatar: '👰‍♀️'
     },
     {
       id: 2,
-      name: 'Michael Chen',
-      event: 'Corporate Event',
-      text: 'Professional team, great communication, and outstanding execution. Highly recommended!',
+      name: 'Sri VB Reddy',
+      event: 'Housewarming Ceremony',
+      text: 'The housewarming ceremony was beautifully organized, filled with positive vibes, and made everyone feel truly welcomed.',
       rating: 5,
-      avatar: '💼'
     },
     {
       id: 3,
-      name: 'Emma Williams',
-      event: 'Music Concert',
-      text: 'The concert was spectacular! The organization and logistics were impeccable.',
+      name: 'Shanmukh Gupta',
+      event: 'Birthday Party',
+      text: 'The birthday party was fun, well-organized, and filled with joy, laughter, and great memories.',
       rating: 5,
-      avatar: '🎙️'
     },
-    {
-      id: 4,
-      name: 'David Martinez',
-      event: 'Tech Conference',
-      text: 'Best tech event I\'ve attended. Amazing venues, great speakers, and perfect timing.',
-      rating: 5,
-      avatar: '🏆'
-    }
   ];
 
   useEffect(() => {

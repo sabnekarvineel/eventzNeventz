@@ -10,8 +10,9 @@ function Footer({ scrollToHero }) {
         <div className="footer-content">
           <div className="footer-section">
             <h3 className="footer-logo" onClick={scrollToHero}>
-              <span className="logo-icon">✨</span>
-              EventzNEventz
+              <span className="logo-text">Eventz</span>
+              <span className="logo-n">N</span>
+              <span className="logo-text">Eventz</span>
             </h3>
             <p className="footer-tagline">Creating unforgettable event experiences worldwide</p>
           </div>
