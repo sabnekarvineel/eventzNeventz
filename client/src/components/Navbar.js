@@ -25,10 +25,13 @@ function Navbar({ navLinks }) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-logo" onClick={() => handleNavClick(navLinks.home)}>
-          <span className="logo-text">Eventz</span>
-          <span className="logo-n">N</span>
-          <span className="logo-text">Eventz</span>
+        <div className="navbar-logo-container" onClick={() => handleNavClick(navLinks.home)}>
+          <div className="navbar-logo">
+            <span className="logo-text">Eventz</span>
+            <span className="logo-n">N</span>
+            <span className="logo-text">Eventz</span>
+          </div>
+          <div className="navbar-subtitle">Crafting Events with Excellence</div>
         </div>
         
         <div className={`menu-icon ${isOpen ? 'active' : ''}`} onClick={handleMenuClick}>

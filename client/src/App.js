@@ -6,6 +6,7 @@ import Services from './components/Services';
 
 import Booking from './components/Booking';
 import Testimonials from './components/Testimonials';
+import HappyClients from './components/HappyClients';
 import WhyChooseUs from './components/WhyChooseUs';
 import Contact from './components/Contact';
 import CTA from './components/CTA';
@@ -59,11 +60,14 @@ function App() {
         <Booking />
       </section>
       <section ref={testimonialsRef}>
-        <Testimonials />
-      </section>
-      <section ref={whyChooseRef}>
-        <WhyChooseUs />
-      </section>
+         <Testimonials />
+       </section>
+       <section>
+         <HappyClients />
+       </section>
+       <section ref={whyChooseRef}>
+         <WhyChooseUs />
+       </section>
       <section ref={contactRef}>
         <Contact />
       </section>

@@ -9,11 +9,14 @@ function Footer({ scrollToHero }) {
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3 className="footer-logo" onClick={scrollToHero}>
-              <span className="logo-text">Eventz</span>
-              <span className="logo-n">N</span>
-              <span className="logo-text">Eventz</span>
-            </h3>
+            <div className="footer-logo-container" onClick={scrollToHero}>
+              <h3 className="footer-logo">
+                <span className="logo-text">Eventz</span>
+                <span className="logo-n">N</span>
+                <span className="logo-text">Eventz</span>
+              </h3>
+              <div className="footer-subtitle">Crafting Events with Excellence</div>
+            </div>
             <p className="footer-tagline">Creating unforgettable event experiences worldwide</p>
           </div>
 

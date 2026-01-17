@@ -1,0 +1,134 @@
+.happy-clients {
+  padding: 80px 20px;
+  background: #2C3E50;
+  position: relative;
+  overflow: hidden;
+}
+
+.happy-clients::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  bottom: -100px;
+  right: -100px;
+}
+
+.happy-clients .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.section-title p {
+  color: #D4AF37;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.clients-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 3rem 0;
+}
+
+.clients-track {
+  display: flex;
+  animation: scroll 15s linear infinite;
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+.clients-track:hover {
+  animation-play-state: paused;
+}
+
+.client-logo {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.client-logo:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #D4AF37;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.client-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: brightness(0.9);
+  transition: all 0.3s ease;
+}
+
+.client-logo:hover img {
+  filter: brightness(1.1);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.clients-track-duplicate {
+  animation: scroll 15s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .happy-clients {
+    padding: 60px 20px;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-title p {
+    font-size: 0.95rem;
+  }
+
+  .client-logo {
+    width: 120px;
+    height: 90px;
+    padding: 0.8rem;
+  }
+
+  .clients-track {
+    gap: 1rem;
+    padding: 1rem 0;
+    animation: scroll 10s linear infinite;
+  }
+
+  .clients-track-duplicate {
+    animation: scroll 10s linear infinite;
+  }
+}
