@@ -47,10 +47,11 @@
 }
 
 .clients-track {
-  display: flex;
-  animation: scroll 15s linear infinite;
-  gap: 1.5rem;
-  padding: 2rem 0;
+   display: flex;
+   animation: scroll 25s linear infinite;
+   gap: 1.5rem;
+   padding: 2rem 0;
+   will-change: transform;
 }
 
 .clients-track:hover {
@@ -91,12 +92,12 @@
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+   0% {
+     transform: translateX(0);
+   }
+   100% {
+     transform: translateX(calc(-160px * 10 - 1.5rem * 10));
+   }
 }
 
 .clients-track-duplicate {
@@ -125,10 +126,10 @@
   .clients-track {
     gap: 1rem;
     padding: 1rem 0;
-    animation: scroll 10s linear infinite;
+    animation: scroll 16s linear infinite;
   }
 
   .clients-track-duplicate {
-    animation: scroll 10s linear infinite;
+    animation: scroll 16s linear infinite;
   }
 }

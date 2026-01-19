@@ -74,7 +74,7 @@ function About() {
 
             <div className="founder-section">
               <div className="founder-avatar">
-                <img src="https://res.cloudinary.com/dqpxq0ljn/image/upload/v1737271198/pc0nk6lvpw1uvkas3kwf.jpg" alt="Narsingh Khadke" />
+                <img src="https://res.cloudinary.com/dqpxq0ljn/image/upload/v1768832468/011b9b32-f7b3-4224-85fa-6281777f80ca_pkbk0c.jpg" alt="Narsingh Khadke" />
               </div>
               <div className="founder-info">
                 <h4>Narsingh Khadke</h4>
