@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
 const app = express();
@@ -9,16 +9,8 @@ const PORT = process.env.PORT || 5000;
 // Business email
 const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
 
-// Email configuration
-const transporter = nodemailer.createTransport({
-  host: 'smtp.hostinger.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER || 'eventzneventz@gmail.com',
-    pass: process.env.EMAIL_PASSWORD || 'Rama@5388'
-  }
-});
+// SendGrid configuration
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
 // Middleware
 app.use(cors());
@@ -101,9 +93,21 @@ app.post('/api/bookings', async (req, res) => {
   };
 
   try {
-    // Send both emails
-    await transporter.sendMail(customerMailOptions);
-    await transporter.sendMail(businessMailOptions);
+    // Send customer confirmation email
+    await sgMail.send({
+      to: email,
+      from: BUSINESS_EMAIL,
+      subject: customerMailOptions.subject,
+      html: customerMailOptions.html
+    });
+
+    // Send business notification email
+    await sgMail.send({
+      to: BUSINESS_EMAIL,
+      from: BUSINESS_EMAIL,
+      subject: businessMailOptions.subject,
+      html: businessMailOptions.html
+    });
 
     console.log(`📅 New Booking Received:
     Name: ${name}
@@ -184,9 +188,21 @@ app.post('/api/contact', async (req, res) => {
   };
 
   try {
-    // Send both emails
-    await transporter.sendMail(customerMailOptions);
-    await transporter.sendMail(businessMailOptions);
+    // Send customer acknowledgment email
+    await sgMail.send({
+      to: email,
+      from: BUSINESS_EMAIL,
+      subject: customerMailOptions.subject,
+      html: customerMailOptions.html
+    });
+
+    // Send business notification email
+    await sgMail.send({
+      to: BUSINESS_EMAIL,
+      from: BUSINESS_EMAIL,
+      subject: businessMailOptions.subject,
+      html: businessMailOptions.html
+    });
 
     console.log(`💬 New Contact Message Received:
     Name: ${name}
