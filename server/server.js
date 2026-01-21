@@ -11,10 +11,12 @@ const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
 
 // Email configuration
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.hostinger.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER || 'eventzneventz@gmail.com',
-    pass: process.env.EMAIL_PASSWORD || ''
+    pass: process.env.EMAIL_PASSWORD || 'Rama@5388'
   }
 });
 
