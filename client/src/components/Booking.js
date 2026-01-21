@@ -41,7 +41,7 @@ function Booking() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/bookings', formData);
+      const response = await axios.post('https://eventzneventz.onrender.com/api/bookings', formData);
       setSuccess(true);
       setFormData({
         name: '',
