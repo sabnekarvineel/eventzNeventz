@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const brevo = require('brevo');
+const { Resend } = require('resend');
 require('dotenv').config();
 
 const app = express();
@@ -9,9 +9,8 @@ const PORT = process.env.PORT || 5000;
 // Business email
 const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
 
-// Brevo configuration
-const apiInstance = new brevo.TransactionalEmailsApi();
-apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
+// Resend configuration
+const resend = new Resend(process.env.RESEND_API_KEY || '');
 
 // Middleware
 app.use(cors());
@@ -95,22 +94,20 @@ app.post('/api/bookings', async (req, res) => {
 
   try {
     // Send customer confirmation email
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.subject = customerMailOptions.subject;
-    sendSmtpEmail.htmlContent = customerMailOptions.html;
-    sendSmtpEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
-    sendSmtpEmail.to = [{ email: email }];
-
-    await apiInstance.sendTransacEmail(sendSmtpEmail);
+    await resend.emails.send({
+      from: BUSINESS_EMAIL,
+      to: email,
+      subject: customerMailOptions.subject,
+      html: customerMailOptions.html
+    });
 
     // Send business notification email
-    const businessEmail = new brevo.SendSmtpEmail();
-    businessEmail.subject = businessMailOptions.subject;
-    businessEmail.htmlContent = businessMailOptions.html;
-    businessEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
-    businessEmail.to = [{ email: BUSINESS_EMAIL }];
-
-    await apiInstance.sendTransacEmail(businessEmail);
+    await resend.emails.send({
+      from: BUSINESS_EMAIL,
+      to: BUSINESS_EMAIL,
+      subject: businessMailOptions.subject,
+      html: businessMailOptions.html
+    });
 
     console.log(`📅 New Booking Received:
     Name: ${name}
@@ -192,22 +189,20 @@ app.post('/api/contact', async (req, res) => {
 
   try {
     // Send customer acknowledgment email
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.subject = customerMailOptions.subject;
-    sendSmtpEmail.htmlContent = customerMailOptions.html;
-    sendSmtpEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
-    sendSmtpEmail.to = [{ email: email }];
-
-    await apiInstance.sendTransacEmail(sendSmtpEmail);
+    await resend.emails.send({
+      from: BUSINESS_EMAIL,
+      to: email,
+      subject: customerMailOptions.subject,
+      html: customerMailOptions.html
+    });
 
     // Send business notification email
-    const businessEmail = new brevo.SendSmtpEmail();
-    businessEmail.subject = businessMailOptions.subject;
-    businessEmail.htmlContent = businessMailOptions.html;
-    businessEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
-    businessEmail.to = [{ email: BUSINESS_EMAIL }];
-
-    await apiInstance.sendTransacEmail(businessEmail);
+    await resend.emails.send({
+      from: BUSINESS_EMAIL,
+      to: BUSINESS_EMAIL,
+      subject: businessMailOptions.subject,
+      html: businessMailOptions.html
+    });
 
     console.log(`💬 New Contact Message Received:
     Name: ${name}
