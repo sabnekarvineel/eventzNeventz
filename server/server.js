@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Business email
-const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
+const BUSINESS_EMAIL = 'noreply@eventzneventz.com';
 
 // Resend configuration
 const resend = new Resend(process.env.RESEND_API_KEY || '');
