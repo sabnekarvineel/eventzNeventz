@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const mailgun = require('mailgun.js');
+const FormData = require('form-data');
+const Mailgun = require('mailgun.js');
 require('dotenv').config();
 
 const app = express();
@@ -10,9 +11,10 @@ const PORT = process.env.PORT || 5000;
 const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
 
 // Mailgun configuration
-const mg = new mailgun.Mailgun({
-  apiKey: process.env.MAILGUN_API_KEY || '',
-  domain: process.env.MAILGUN_DOMAIN || ''
+const mailgun = new Mailgun(FormData);
+const mg = mailgun.client({
+  username: 'api',
+  key: process.env.MAILGUN_API_KEY || ''
 });
 
 // Middleware
