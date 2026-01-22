@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const sgMail = require('@sendgrid/mail');
+const mailgun = require('mailgun.js');
 require('dotenv').config();
 
 const app = express();
@@ -9,8 +9,11 @@ const PORT = process.env.PORT || 5000;
 // Business email
 const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
 
-// SendGrid configuration
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+// Mailgun configuration
+const mg = new mailgun.Mailgun({
+  apiKey: process.env.MAILGUN_API_KEY || '',
+  domain: process.env.MAILGUN_DOMAIN || ''
+});
 
 // Middleware
 app.use(cors());
@@ -94,17 +97,17 @@ app.post('/api/bookings', async (req, res) => {
 
   try {
     // Send customer confirmation email
-    await sgMail.send({
-      to: email,
+    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
       from: BUSINESS_EMAIL,
+      to: email,
       subject: customerMailOptions.subject,
       html: customerMailOptions.html
     });
 
     // Send business notification email
-    await sgMail.send({
-      to: BUSINESS_EMAIL,
+    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
       from: BUSINESS_EMAIL,
+      to: BUSINESS_EMAIL,
       subject: businessMailOptions.subject,
       html: businessMailOptions.html
     });
@@ -189,17 +192,17 @@ app.post('/api/contact', async (req, res) => {
 
   try {
     // Send customer acknowledgment email
-    await sgMail.send({
-      to: email,
+    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
       from: BUSINESS_EMAIL,
+      to: email,
       subject: customerMailOptions.subject,
       html: customerMailOptions.html
     });
 
     // Send business notification email
-    await sgMail.send({
-      to: BUSINESS_EMAIL,
+    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
       from: BUSINESS_EMAIL,
+      to: BUSINESS_EMAIL,
       subject: businessMailOptions.subject,
       html: businessMailOptions.html
     });
