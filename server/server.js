@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const FormData = require('form-data');
-const Mailgun = require('mailgun.js');
+const brevo = require('brevo');
 require('dotenv').config();
 
 const app = express();
@@ -10,12 +9,9 @@ const PORT = process.env.PORT || 5000;
 // Business email
 const BUSINESS_EMAIL = 'eventzneventz@gmail.com';
 
-// Mailgun configuration
-const mailgun = new Mailgun(FormData);
-const mg = mailgun.client({
-  username: 'api',
-  key: process.env.MAILGUN_API_KEY || ''
-});
+// Brevo configuration
+const apiInstance = new brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
 
 // Middleware
 app.use(cors());
@@ -99,20 +95,22 @@ app.post('/api/bookings', async (req, res) => {
 
   try {
     // Send customer confirmation email
-    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
-      from: BUSINESS_EMAIL,
-      to: email,
-      subject: customerMailOptions.subject,
-      html: customerMailOptions.html
-    });
+    const sendSmtpEmail = new brevo.SendSmtpEmail();
+    sendSmtpEmail.subject = customerMailOptions.subject;
+    sendSmtpEmail.htmlContent = customerMailOptions.html;
+    sendSmtpEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
+    sendSmtpEmail.to = [{ email: email }];
+
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
 
     // Send business notification email
-    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
-      from: BUSINESS_EMAIL,
-      to: BUSINESS_EMAIL,
-      subject: businessMailOptions.subject,
-      html: businessMailOptions.html
-    });
+    const businessEmail = new brevo.SendSmtpEmail();
+    businessEmail.subject = businessMailOptions.subject;
+    businessEmail.htmlContent = businessMailOptions.html;
+    businessEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
+    businessEmail.to = [{ email: BUSINESS_EMAIL }];
+
+    await apiInstance.sendTransacEmail(businessEmail);
 
     console.log(`📅 New Booking Received:
     Name: ${name}
@@ -194,20 +192,22 @@ app.post('/api/contact', async (req, res) => {
 
   try {
     // Send customer acknowledgment email
-    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
-      from: BUSINESS_EMAIL,
-      to: email,
-      subject: customerMailOptions.subject,
-      html: customerMailOptions.html
-    });
+    const sendSmtpEmail = new brevo.SendSmtpEmail();
+    sendSmtpEmail.subject = customerMailOptions.subject;
+    sendSmtpEmail.htmlContent = customerMailOptions.html;
+    sendSmtpEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
+    sendSmtpEmail.to = [{ email: email }];
+
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
 
     // Send business notification email
-    await mg.messages.create(process.env.MAILGUN_DOMAIN, {
-      from: BUSINESS_EMAIL,
-      to: BUSINESS_EMAIL,
-      subject: businessMailOptions.subject,
-      html: businessMailOptions.html
-    });
+    const businessEmail = new brevo.SendSmtpEmail();
+    businessEmail.subject = businessMailOptions.subject;
+    businessEmail.htmlContent = businessMailOptions.html;
+    businessEmail.sender = { name: 'EventzNEventz', email: BUSINESS_EMAIL };
+    businessEmail.to = [{ email: BUSINESS_EMAIL }];
+
+    await apiInstance.sendTransacEmail(businessEmail);
 
     console.log(`💬 New Contact Message Received:
     Name: ${name}
