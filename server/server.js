@@ -6,8 +6,10 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Business email
+// Business email (for sending)
 const BUSINESS_EMAIL = 'noreply@eventzneventz.com';
+// Business inbox (for receiving notifications)
+const BUSINESS_INBOX = 'sabnekarvineel862@gmail.com';
 
 // Resend configuration
 const resend = new Resend(process.env.RESEND_API_KEY || '');
@@ -104,7 +106,7 @@ app.post('/api/bookings', async (req, res) => {
     // Send business notification email
     await resend.emails.send({
       from: BUSINESS_EMAIL,
-      to: BUSINESS_EMAIL,
+      to: BUSINESS_INBOX,
       subject: businessMailOptions.subject,
       html: businessMailOptions.html
     });
@@ -198,10 +200,10 @@ app.post('/api/contact', async (req, res) => {
 
     // Send business notification email
     await resend.emails.send({
-      from: BUSINESS_EMAIL,
-      to: BUSINESS_EMAIL,
-      subject: businessMailOptions.subject,
-      html: businessMailOptions.html
+     from: BUSINESS_EMAIL,
+     to: BUSINESS_INBOX,
+     subject: businessMailOptions.subject,
+     html: businessMailOptions.html
     });
 
     console.log(`💬 New Contact Message Received:
