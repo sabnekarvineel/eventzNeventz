@@ -40,9 +40,15 @@ function Contact() {
       // Save contact message to backend
       await axios.post('https://eventzneventz.onrender.com/api/contact', formData);
 
-      // Send confirmation email via EmailJS
+      // Send confirmation email to customer
       await emailjs.send('service_vahmbbt', 'template_71vzta5', {
         email: formData.email,
+        message: formData.message
+      });
+
+      // Send business notification
+      await emailjs.send('service_vahmbbt', 'template_71vzta5', {
+        email: 'eventzneventz@gmail.com',
         message: formData.message
       });
 
