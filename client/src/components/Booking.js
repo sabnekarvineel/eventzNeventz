@@ -37,6 +37,13 @@ function Booking() {
       return;
     }
 
+    // Phone validation - 10 digits only
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(formData.phone.replace(/\D/g, ''))) {
+      setError('Phone number must be 10 digits');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
