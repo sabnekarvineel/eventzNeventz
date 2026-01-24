@@ -55,9 +55,23 @@ function Booking() {
       // Save booking to backend
       const response = await axios.post('https://eventzneventz.onrender.com/api/bookings', formData);
 
-      // Send confirmation email via EmailJS
+      // Send confirmation email to customer
       await emailjs.send('service_vahmbbt', 'template_fn09o7i', {
         email: formData.email,
+        name: formData.name,
+        phone: formData.phone,
+        event_type: formData.eventType,
+        event_date: formData.date,
+        event_time: formData.time,
+        attendees: formData.attendees,
+        notes: formData.notes
+      });
+
+      // Send business notification
+      await emailjs.send('service_vahmbbt', 'template_fn09o7i', {
+        email: 'eventzneventz@gmail.com',
+        name: formData.name,
+        phone: formData.phone,
         event_type: formData.eventType,
         event_date: formData.date,
         event_time: formData.time,
