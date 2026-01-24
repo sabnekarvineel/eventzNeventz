@@ -57,7 +57,7 @@ function Booking() {
 
       // Send confirmation email via EmailJS
       await emailjs.send('service_vahmbbt', 'template_fn09o7i', {
-        to_email: formData.email,
+        email: formData.email,
         event_type: formData.eventType,
         event_date: formData.date,
         event_time: formData.time,
