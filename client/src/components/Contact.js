@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
+
+// Initialize EmailJS
+emailjs.init('RbQoUmwLGwPgJmAwt');
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -33,7 +37,24 @@ function Contact() {
     setError('');
 
     try {
+      // Save contact message to backend
       await axios.post('https://eventzneventz.onrender.com/api/contact', formData);
+
+      // Send confirmation email via EmailJS
+      await emailjs.send('service_vahmbbt', 'template_71vzta5', {
+        to_email: formData.email,
+        customer_name: formData.name,
+        message: formData.message
+      });
+
+      // Send business notification
+      await emailjs.send('service_vahmbbt', 'template_71vzta5', {
+        to_email: 'eventzneventz@gmail.com',
+        customer_name: formData.name,
+        customer_email: formData.email,
+        message: formData.message
+      });
+
       setSuccess(true);
       setFormData({
         name: '',

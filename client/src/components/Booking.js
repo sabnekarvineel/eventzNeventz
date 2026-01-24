@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
 import './Booking.css';
+
+// Initialize EmailJS
+emailjs.init('RbQoUmwLGwPgJmAwt');
 
 function Booking() {
   const [formData, setFormData] = useState({
@@ -48,7 +52,33 @@ function Booking() {
     setError('');
 
     try {
+      // Save booking to backend
       const response = await axios.post('https://eventzneventz.onrender.com/api/bookings', formData);
+
+      // Send confirmation email via EmailJS
+      await emailjs.send('service_vahmbbt', 'template_fn09o7i', {
+        to_email: formData.email,
+        customer_name: formData.name,
+        event_type: formData.eventType,
+        event_date: formData.date,
+        event_time: formData.time,
+        attendees: formData.attendees,
+        notes: formData.notes
+      });
+
+      // Send business notification
+      await emailjs.send('service_vahmbbt', 'template_fn09o7i', {
+        to_email: 'eventzneventz@gmail.com',
+        customer_name: formData.name,
+        customer_email: formData.email,
+        customer_phone: formData.phone,
+        event_type: formData.eventType,
+        event_date: formData.date,
+        event_time: formData.time,
+        attendees: formData.attendees,
+        notes: formData.notes
+      });
+
       setSuccess(true);
       setFormData({
         name: '',
