@@ -29,7 +29,7 @@ function About() {
 
   const animateCounters = () => {
     const duration = 2000;
-    const targets = { experience: 15, events: 500, clients: 2000 };
+    const targets = { experience: 15, events: 2000, clients: 2000 };
 
     const startTime = Date.now();
 
